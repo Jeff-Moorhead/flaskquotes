@@ -3,13 +3,6 @@ import json
 import os
 from bs4 import BeautifulSoup
 
-# 1. Fetch whole webpage
-# 2. Parse page for all <div class="row"> where parent is <div class="single_list movie_popup">
-# 3. Get the quote from <div class="m_head"><h6>
-# 4. Get the movie title from <a class="movie-detail">
-# 5. Get extra movie data from <div class="col-sm-6"><p>...
-# 6. Package all data and store. Provide function to access random quote from data.
-
 
 class AFITop100:
     def __init__(self, html):
