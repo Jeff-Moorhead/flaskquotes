@@ -3,3 +3,4 @@ flaskquotes/data/
 flaskquotes/TODO.txt
 .idea/
 flaskquotes/__pycache__/
+flaskquotes/tests/__pycache__/
