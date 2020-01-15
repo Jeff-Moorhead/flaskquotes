@@ -1,0 +1,5 @@
+*.txt
+flaskquotes/data/
+flaskquotes/TODO.txt
+.idea/
+flaskquotes/__pycache__/
