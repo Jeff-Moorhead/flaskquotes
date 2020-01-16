@@ -1,6 +1,7 @@
 *.txt
-flaskquotes/data/
+data/
 flaskquotes/TODO.txt
 .idea/
 flaskquotes/__pycache__/
-flaskquotes/tests/__pycache__/
+tests/*
+tests/__pycache__

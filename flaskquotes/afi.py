@@ -1,16 +1,45 @@
 import requests
 import json
 import os
+from random import randint
 from bs4 import BeautifulSoup
 
 
 class AFITop100:
-    def __init__(self, html):
-        quotetags = find_quotes(html)
-        self.quotes = pack_quotes(quotetags)
+    def __init__(self, quotes):
+        self.quotes = quotes
 
     def get_random_quote(self):
-        pass
+        firstquote_index = min(self.quotes.keys())
+        lastquote_index = max(self.quotes.keys())
+        random_index = randint(firstquote_index, lastquote_index)
+        return tuple([random_index, self.quotes[random_index]])
+
+    def get_quote(self, index):
+        return tuple([index, self.quotes.get(index)])
+
+
+def store_quotes_json(packed_quotes):
+    quotes_file = get_quotes_filename()
+    with open(quotes_file, 'w') as fh:
+        json.dump(packed_quotes, fh)
+
+
+def fetch_quotes_json():
+    quotes_file = get_quotes_filename()
+    with open(quotes_file, 'r') as fh:
+        return json.load(fh)
+
+
+def check_json_exists():
+    quotes_file = get_quotes_filename()
+    return os.path.exists(quotes_file)
+
+
+def get_quotes_filename():
+    project_root = os.path.dirname(os.path.dirname(__file__))
+    datadir = os.path.join(project_root, 'data')
+    return os.path.join(datadir, 'quotes.json')
 
 
 def fetch_afi_quotes_html(url='https://www.afi.com/afis-100-years-100-movie-quotes/'):
@@ -32,13 +61,13 @@ def pack_quotes(quotes, **kwargs):
     """
     packed_quotes = {}
     for group in quotes:
-        raw = group.select_one(kwargs['quote'])
+        raw = group.select_one(kwargs.get('quotetag'))
         raw_quote = raw.string
         raw_quote = raw_quote.strip()
         rank, quote = raw_quote.split(" ", 1)
-        rank = rank.rstrip(".")
+        rank = int(rank.rstrip("."))
 
-        raw = group.select_one(kwargs['movie'])
+        raw = group.select_one(kwargs.get('movietag'))
         raw_movie, raw_year = raw.strings
         raw_movie = raw_movie.strip()
         movie = raw_movie.title()
@@ -47,12 +76,3 @@ def pack_quotes(quotes, **kwargs):
 
         packed_quotes[rank] = {"Quote": quote, "Movie": movie, "Year": year}
     return packed_quotes
-
-
-def store_json(packed_quotes):
-    currdir, currfile = os.path.split(__file__)
-    if os.path.exists(os.path.join(currdir, 'data/quotes.json')):
-        return
-    else:
-        with open(os.path.join(currdir, 'data/quotes.json'), 'w') as fh:
-            json.dump(packed_quotes, fh)
