@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <title>A Quote Machine by Jeff</title>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  
+</head>
+
+<body>
+  <div class="container-fluid text-center">
+    <div class="well">
+      <h1 class="page-title">
+        <b>A Quote for Every Occassion!</b>
+      </h1>
+      <div class="quote">Click for an AFI Top 100 movie quote!</div>
+      <div class="movie">{{ quote }}</div>
+      <form method="get" action="{{ url_for('quote') }}">
+        <button type="submit" value="newquote" title="Get a new quote" id="get-quote" class="btn btn-basic">Get a quote!</button>
+      </form>
+      <br>
+      <a id="tweet-link" target="_blank" href="{{ link }}">
+        <button type="button" title="Tweet this quote" id="tweet-quote" class="btn btn-basic" disabled>
+          <i class="fab fa-twitter"></i>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+    $("body").css("visibility", "visible");
+    $("body").hide();
+    $("body").fadeIn(1000);
+    $("#tweet-quote").attr("disabled", false);
+  });
+  </script>
+  <script src="{{ url_for('static', filename='quotes.js') }}"></script>
+</body>
+
+</html>
