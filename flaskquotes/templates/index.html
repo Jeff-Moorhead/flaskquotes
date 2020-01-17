@@ -20,9 +20,7 @@
       </h1>
       <div class="quote">Click for an AFI Top 100 movie quote!</div>
       <div class="movie">{{ quote }}</div>
-      <form method="get" action="{{ url_for('quote') }}">
-        <button type="submit" value="newquote" title="Get a new quote" id="get-quote" class="btn btn-basic">Get a quote!</button>
-      </form>
+      <button type="submit" onclick="getNewQuote()" title="Get a new quote" id="get-quote" class="btn btn-basic">Get a quote!</button>
       <br>
       <a id="tweet-link" target="_blank" href="{{ link }}">
         <button type="button" title="Tweet this quote" id="tweet-quote" class="btn btn-basic" disabled>
@@ -34,6 +32,7 @@
 
   <!-- JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>{{ quotes }}</script>
   <script>
     $(document).ready(function () {
     $("body").css("visibility", "visible");
