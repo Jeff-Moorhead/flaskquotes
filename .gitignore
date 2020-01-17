@@ -5,3 +5,4 @@ flaskquotes/TODO.txt
 flaskquotes/__pycache__/
 tests/*
 tests/__pycache__
+*.egg-info

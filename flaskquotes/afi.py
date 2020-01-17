@@ -28,7 +28,10 @@ def store_quotes_json(packed_quotes):
 def fetch_quotes_json():
     quotes_file = get_quotes_filename()
     with open(quotes_file, 'r') as fh:
-        return json.load(fh)
+        quotes = json.load(fh)
+
+    keys = map(int, quotes.keys())
+    return dict(zip(keys, quotes.values()))
 
 
 def check_json_exists():
@@ -43,9 +46,14 @@ def get_quotes_filename():
 
 
 def fetch_afi_quotes_html(url='https://www.afi.com/afis-100-years-100-movie-quotes/'):
-    page = requests.get(url)    
-    page.raise_for_status()
-    return page
+    try:
+        page = requests.get(url)
+        page.raise_for_status()
+        return page.content
+    except requests.exceptions.HTTPError:
+        return None
+    except requests.ConnectionError as e:
+        raise RuntimeError('No internet connection available')
 
 
 def find_quotes(html, selector='div.single_list.col-sm-12.movie_popup'):
