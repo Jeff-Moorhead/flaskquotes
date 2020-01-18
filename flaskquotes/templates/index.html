@@ -3,8 +3,8 @@
 <html lang="en-US">
 
 <head>
-  <title>A Quote Machine by Jeff</title>
   <meta charset="UTF-8">
+  <title>A Quote Machine by Jeff</title>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -19,11 +19,11 @@
         <b>A Quote for Every Occassion!</b>
       </h1>
       <div class="quote">Click for an AFI Top 100 movie quote!</div>
-      <div class="movie">{{ quote }}</div>
-      <button type="submit" onclick="getNewQuote()" title="Get a new quote" id="get-quote" class="btn btn-basic">Get a quote!</button>
+      <div class="movie">- </div>
+      <button type="button" onclick="formatMovieData()" title="Get a new quote" id="get-quote" class="btn btn-basic">Get a quote!</button>
       <br>
-      <a id="tweet-link" target="_blank" href="{{ link }}">
-        <button type="button" title="Tweet this quote" id="tweet-quote" class="btn btn-basic" disabled>
+      <a id="tweet-link" target="_blank" href="">
+        <button type="submit" title="Tweet this quote" id="tweet-quote" class="btn btn-basic" disabled>
           <i class="fab fa-twitter"></i>
         </button>
       </a>
@@ -33,14 +33,15 @@
   <!-- JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    quotes = {{quotes}}</script>
-  <script>
     $(document).ready(function () {
+    $("#tweet-quote").attr("disabled", true);
     $("body").css("visibility", "visible");
     $("body").hide();
     $("body").fadeIn(1000);
-    $("#tweet-quote").attr("disabled", false);
   });
+  </script>
+  <script>
+    var quotes = {{ quotes|tojson|safe }};
   </script>
   <script src="{{ url_for('static', filename='quotes.js') }}"></script>
 </body>

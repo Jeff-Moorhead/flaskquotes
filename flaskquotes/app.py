@@ -7,13 +7,8 @@ app = flask.Flask(__name__)
 @app.route('/')
 def quote():
     quotes = afi.fetch_quotes_json()
-    quotes = flask.jsonify(quotes)
-    rank, quote = get_quote()
 
-    formatted = f"#{rank} - {quote['Quote']} - from {quote['Movie']} ({quote['Year']})"
-    twitter = f"https://twitter.com/intent/tweet?text=\"{quote['Quote']}\"%20%20%20&hashtags={quote['Movie']},Python,Flask"
-
-    return flask.render_template('index.html', quote=formatted, link=twitter, quotes=quotes)
+    return flask.render_template('index.html', quotes=quotes)
     
 
 def get_quote():

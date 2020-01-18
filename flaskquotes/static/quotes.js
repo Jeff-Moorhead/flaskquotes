@@ -1,39 +1,55 @@
-var quote;
-var movie;
-var year;
-var rank = Math.floor(Math.random() * 100);
+function formatMovieData() {
+    let moviedata = getRandomQuote()
+    let twitterLink = getTwitterLink(moviedata)
 
-function getNewQuote() {
-    fade()
-    quote = quotes.rank.Quote;
-    movie = quotes.rank.Movie;
-    year = quotes.rank.Year;
-    var twitterLink = "https://twitter.com/intent/tweet?text=\"" +
-    quote + "\"%20%20%20&hashtags=" + movie + ",freeCodeCamp" +
-    ",FrontEndWebDev"
     $("#tweet-link").attr("href", twitterLink);
-    var newIndex = Math.floor(Math.random() * 100);
-    if (newIndex != rank) {
-        rank = newIndex;
-    }
-    else {
-        newIndex = Math.floor(Math.randon() * 100);
-    }
-}
-
-function fade() {
-    formatted = "#" + rank + " -  " + quote + " - from " + movie + " (year)";
     $(".quote").fadeOut(1000, function () {
-        $(".quote").html("\"" + formatted + "\"");
+        $(".quote").html("#" + moviedata.rank + " - " + moviedata.quote);
         $(this).fadeIn(1000);
     });
 
-    /*$(".movie").fadeOut(1000, function () {
-        $(".movie").html("- " + movie);
+    $(".movie").fadeOut(1000, function () {
+        $(".movie").html("- " + moviedata.movie + " (" + moviedata.year + ")");
         $(this).fadeIn(1000);
-    });*/
+    });
 
     $(".btn-basic").fadeOut(1000, function () {
         $(this).fadeIn(1000);
     })
-};
+
+    $("#tweet-quote").attr("disabled", false);
+}
+
+function getRandomQuote() {
+    let quote;
+    let movie;
+    let year;
+    let rank = getRandomRank(); 
+
+    console.log(rank);
+    console.log(quotes[rank]);
+    quote = quotes[rank].Quote;
+    movie = quotes[rank].Movie;
+    year = quotes[rank].Year
+    console.log(quote);
+    linkQuote = quote.split(" ").join("+");
+    linkMovie = movie.split(" ").join("");
+
+    return {"rank": rank, "quote": quote, "movie": movie, "year": year};
+}
+
+function getTwitterLink(moviedata) {
+    quote = moviedata.quote;
+    movie = moviedata.movie;
+    
+    linkQuote = quote.split(" ").join("+");
+    linkMovie = movie.split(" ").join("+");
+
+    return "https://twitter.com/intent/tweet?text=" +
+    linkQuote + "%20%20%20&hashtags=" + linkMovie + ",Python" +
+    ",Flask";
+}
+
+function getRandomRank() {
+	return Math.floor(Math.random() * 100) + 1;
+}
