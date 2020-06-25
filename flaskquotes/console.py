@@ -23,6 +23,7 @@ def main():
         rank, quote = top100.get_random_quote()
 
     formatted = f"#{rank} {quote['Quote']} - from {quote['Movie']} ({quote['Year']})"
+    print(formatted)
     sys.exit()
 
 
