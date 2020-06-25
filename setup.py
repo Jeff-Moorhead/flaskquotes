@@ -7,5 +7,5 @@ setup(name="flaskquotes",
           'console_scripts': [
               'quotes=flaskquotes.console:main'
           ]
-      }, install_requires=['beautifulsoup4']
+      }, install_requires=['BeautifulSoup4', 'Flask']
       )
