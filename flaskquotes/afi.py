@@ -21,7 +21,7 @@ class AFITop100:
 
 def store_quotes_json(packed_quotes):
     quotes_file = get_quotes_filename()
-    os.makedirs(quotes_file)
+    os.makedirs(os.path.dirname(quotes_file))
     with open(quotes_file, 'w') as fh:
         json.dump(packed_quotes, fh)
 
