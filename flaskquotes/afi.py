@@ -41,7 +41,7 @@ def check_json_exists():
 
 
 def get_quotes_filename():
-    datadir = os.path.join(os.path.expanduser("~", 'data')
+    datadir = os.path.join(os.path.expanduser("~", 'data'))
     return os.path.join(datadir, 'quotes.json')
 
 
