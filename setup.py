@@ -5,7 +5,7 @@ version = {}
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-with open("./version.py", "r") as vh:
+with open("./flaskquotes/version.py", "r") as vh:
     exec(vh.read(), version)
 
 setup(name="flaskquotes",
