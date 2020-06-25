@@ -21,6 +21,7 @@ class AFITop100:
 
 def store_quotes_json(packed_quotes):
     quotes_file = get_quotes_filename()
+    os.makedirs(quotes_file)
     with open(quotes_file, 'w') as fh:
         json.dump(packed_quotes, fh)
 
@@ -40,8 +41,7 @@ def check_json_exists():
 
 
 def get_quotes_filename():
-    project_root = os.path.dirname(os.path.dirname(__file__))
-    datadir = os.path.join(project_root, 'data')
+    datadir = os.path.join(os.path.expanduser("~", 'data')
     return os.path.join(datadir, 'quotes.json')
 
 
