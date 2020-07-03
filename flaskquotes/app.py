@@ -1,11 +1,14 @@
 import flask
-from flaskquotes import afi 
+from flaskquotes import afi, console
 
 app = flask.Flask(__name__)
 
 
 @app.route('/')
 def quote():
+    if not afi.check_json_exists():
+        console.build_quotes_file()
+
     quotes = afi.fetch_quotes_json()
 
     return flask.render_template('index.html', quotes=quotes)
