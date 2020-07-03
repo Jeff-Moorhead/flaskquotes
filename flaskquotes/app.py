@@ -1,5 +1,5 @@
 import flask
-from . import afi 
+from flaskquotes import afi 
 
 app = flask.Flask(__name__)
 
