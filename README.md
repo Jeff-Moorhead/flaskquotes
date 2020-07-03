@@ -12,7 +12,8 @@ To install, simply run `pip install flaskquotes`.
 Usage
 -----
 
-This project is a web application, but it includes a command line entrypoint called `quotes`.
+This project is a web application. You can view the project on [Heroku](https://flaskquotes.herokuapp.com).
+The package also includes a command line entrypoint called `quotes`.
 After installation, run `quotes` for a random quote, or include the `--random` option for a
 random quote.
 
