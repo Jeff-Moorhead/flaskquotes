@@ -1,4 +1,5 @@
 *.txt
+!requirements.txt
 data/
 flaskquotes/TODO.txt
 .idea/

@@ -20,5 +20,5 @@ setup(name="flaskquotes",
           'console_scripts': [
               'quotes=flaskquotes.console:main'
           ]
-      }, install_requires=['BeautifulSoup4', 'Flask']
+      }, install_requires=['BeautifulSoup4', 'Flask', 'gunicorn']
       )
