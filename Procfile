@@ -1,1 +1,1 @@
-web: gunicorn flaskquotes:app
+web: gunicorn run:app

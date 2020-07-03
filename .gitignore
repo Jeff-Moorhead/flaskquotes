@@ -3,9 +3,9 @@
 data/
 flaskquotes/TODO.txt
 .idea/
-flaskquotes/__pycache__/
 tests/*
-tests/__pycache__
+__pycache__/
+*/__pycache__/
 *.egg-info
 dist/
 build/
