@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import logging
 from random import randint
 from bs4 import BeautifulSoup
 
@@ -51,16 +52,22 @@ def fetch_afi_quotes_html(url='https://www.afi.com/afis-100-years-100-movie-quot
         page = requests.get(url)
         page.raise_for_status()
         return page.content
-    except requests.exceptions.HTTPError:
-        return None
+    except requests.exceptions.HTTPError as e:
+        logging.error(f"Something went wront in fetch_afi_quotes_html: {e}")
+        raise
     except requests.ConnectionError as e:
-        raise RuntimeError('No internet connection available')
+        logging.error("No internet connection available to fetch quotes.")
+        raise 
 
 
 def find_quotes(html, selector='div.single_list.col-sm-12.movie_popup'):
-    soup = BeautifulSoup(html, 'html.parser')
-    quotes = soup.select(selector)
-    return quotes
+    try:
+        soup = BeautifulSoup(html, 'html.parser')
+        quotes = soup.select(selector)
+        return quotes
+    except Exception as e:
+        logging.error(f"Unable to select movie elements: {e}")
+        raise
 
 
 def pack_quotes(quotes, **kwargs):
@@ -69,6 +76,7 @@ def pack_quotes(quotes, **kwargs):
     :return: a dictionary of packaged quotes
     """
     packed_quotes = {}
+
     for group in quotes:
         raw = group.select_one(kwargs.get('quotetag'))
         raw_quote = raw.string
@@ -84,4 +92,5 @@ def pack_quotes(quotes, **kwargs):
         year = raw_year.rstrip(')')
 
         packed_quotes[rank] = {"Quote": quote, "Movie": movie, "Year": year}
+
     return packed_quotes

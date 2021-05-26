@@ -1,4 +1,5 @@
 import flask
+import logging
 from flaskquotes import afi, console
 
 app = flask.Flask(__name__)
@@ -10,13 +11,15 @@ def quote():
         try:
             console.build_quotes_file()
         except Exception as e:
-            raise Exception(f"Unable to build quotes file: {e}")
+            logging.error(f"Unable to build quotes file: {e}")
+            raise 
 
     try:
         quotes = afi.fetch_quotes_json()
         return flask.render_template('index.html', quotes=quotes)
     except Exception as e: 
-        raise Exception(f"Unable to get quotes json: {e}")
+        logging.error(f"Unable to render index.html: {e}")
+        raise
 
 def get_quote():
     if not afi.check_json_exists():
@@ -29,4 +32,5 @@ def get_quote():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     app.run()

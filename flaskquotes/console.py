@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+import logging
 
 from flaskquotes import afi
 
@@ -31,11 +32,10 @@ def build_quotes_file():
     try:
         source = afi.fetch_afi_quotes_html()
         if source is None:
-            print('Quotes is currently unavailable. Please try again later')
-            sys.exit()
-    except RuntimeError:
-        print('Quotes are unavailable. Please connect to the internet and try again.')
-        sys.exit()
+            logging.error(f"Failed to fetch quotes from afi.com.")
+    except RuntimeError as e:
+        logging.error(f"Quotes are unavailable: {e}")
+        raise
 
     quotes = afi.find_quotes(source)
     packed_quotes = afi.pack_quotes(quotes, quotetag='h6.q_title', movietag='a.movie-detail')
