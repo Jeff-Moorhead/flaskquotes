@@ -48,8 +48,7 @@ def check_json_exists():
 
 
 def get_quotes_filename():
-    datadir = os.path.join(os.path.expanduser("~"), 'data')
-    return os.path.join(datadir, 'quotes.json')
+    return os.path.join('data', 'quotes.json')
 
 
 def fetch_afi_quotes_html(url='https://www.afi.com/afis-100-years-100-movie-quotes/'):
