@@ -1,5 +1,6 @@
 import flask
 import logging
+
 from flaskquotes import afi, console
 
 app = flask.Flask(__name__)
