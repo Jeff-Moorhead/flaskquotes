@@ -11,11 +11,6 @@ with open("README.md", "r") as fh:
 with open("./flaskquotes/version.py", "r") as vh:
     exec(vh.read(), version)
 
-if not os.path.exists(os.path.expandvars("$HOME/data"):
-    os.mkdir(os.path.expandvars("$HOME/app/data")
-
-shutil.copy("data/quotes.json", os.path.expandvars("$HOME/app/data/"))
-
 setup(name="flaskquotes",
       description="Get AFI top 100 quotes",
       author="Jeff Moorhead",
@@ -30,5 +25,5 @@ setup(name="flaskquotes",
           ]
       }, 
       install_requires=['BeautifulSoup4', 'Flask', 'gunicorn'],
-      data_files=[(os.path.expandvars("$HOME/app/data"), "data/quotes.json")]
+      package_data={"flaskquotes": ["data/quotes.json"]},
       )
