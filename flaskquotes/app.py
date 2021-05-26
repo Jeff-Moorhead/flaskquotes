@@ -7,12 +7,16 @@ app = flask.Flask(__name__)
 @app.route('/')
 def quote():
     if not afi.check_json_exists():
-        console.build_quotes_file()
+        try:
+            console.build_quotes_file()
+        except Exception as e:
+            raise Exception(f"Unable to build quotes file: {e}")
 
-    quotes = afi.fetch_quotes_json()
-
-    return flask.render_template('index.html', quotes=quotes)
-    
+    try:
+        quotes = afi.fetch_quotes_json()
+        return flask.render_template('index.html', quotes=quotes)
+    except Exception as e: 
+        raise Exception(f"Unable to get quotes json: {e}")
 
 def get_quote():
     if not afi.check_json_exists():
