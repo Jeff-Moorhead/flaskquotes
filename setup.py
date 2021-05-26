@@ -1,3 +1,5 @@
+import os
+
 from setuptools import setup, find_packages
 
 version = {}
@@ -20,5 +22,7 @@ setup(name="flaskquotes",
           'console_scripts': [
               'quotes=flaskquotes.console:main'
           ]
-      }, install_requires=['BeautifulSoup4', 'Flask', 'gunicorn']
+      }, 
+      install_requires=['BeautifulSoup4', 'Flask', 'gunicorn'],
+      data_files=[(os.path.expandvars("$HOME/data"), "data/quotes.json")]
       )
