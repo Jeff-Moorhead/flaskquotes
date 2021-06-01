@@ -25,5 +25,5 @@ random quote.
 Bugs and Modifications
 ----------------------
 
-Please feel free to email me at jeff.moorhead1@gmail.com with ideas for modifications or to
+Please feel free to email jeff.moorhead1@gmail.com with ideas for modifications or to
 report a bug.
